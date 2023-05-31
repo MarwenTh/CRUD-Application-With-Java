@@ -101,31 +101,28 @@ public class DeleteFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
 
-    String username = jTextField1.getText(); // Assuming jTextField1 contains the username
+        String username = jTextField1.getText(); 
 
-    // Delete the user based on the primary key (username)
-    String deleteSQL = "DELETE FROM logindatabase WHERE username = ?";
-    PreparedStatement deleteStmt = con.prepareStatement(deleteSQL);
-    deleteStmt.setString(1, username);
-    int rowsDeleted = deleteStmt.executeUpdate();
-    deleteStmt.close();
+        String deleteSQL = "DELETE FROM logindatabase WHERE username = ?";
+        PreparedStatement deleteStmt = con.prepareStatement(deleteSQL);
+        deleteStmt.setString(1, username);
+        int rowsDeleted = deleteStmt.executeUpdate();
+        deleteStmt.close();
 
-    // Close the connection
-    con.close();
+        con.close();
 
-    // Display a message based on the deletion result
-    if (rowsDeleted > 0) {
-        JOptionPane.showMessageDialog(null, "User deleted successfully!");
-        jTextField1.setText("");
-    } else {
-        JOptionPane.showMessageDialog(null, "User not found or could not be deleted.");
-    }
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
+        if (rowsDeleted > 0) {
+            JOptionPane.showMessageDialog(null, "User deleted successfully!");
+            jTextField1.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found or could not be deleted.");
+        }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

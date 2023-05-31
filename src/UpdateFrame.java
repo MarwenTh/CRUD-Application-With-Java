@@ -9,12 +9,12 @@ import java.sql.*;
  *
  * @author MarwenTh
  */
-public class ModifyUser extends javax.swing.JFrame {
+public class UpdateFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ModifyUser
      */
-    public ModifyUser() {
+    public UpdateFrame() {
         initComponents();
         jButton3.setVisible(false);
     }
@@ -189,84 +189,76 @@ public class ModifyUser extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
 
-    String username = jTextField1.getText(); // Assuming jTextField1 contains the username
+        String username = jTextField1.getText(); // Assuming jTextField1 contains the username
 
-    // Select user information based on the username
-    String selectSQL = "SELECT * FROM logindatabase WHERE username = ?";
-    PreparedStatement selectStmt = con.prepareStatement(selectSQL);
-    selectStmt.setString(1, username);
-    ResultSet rs = selectStmt.executeQuery();
+        String selectSQL = "SELECT * FROM logindatabase WHERE username = ?";
+        PreparedStatement selectStmt = con.prepareStatement(selectSQL);
+        selectStmt.setString(1, username);
+        ResultSet rs = selectStmt.executeQuery();
 
-    if (rs.next()) {
-        String fullname = rs.getString("fullname");
-        String age = rs.getString("age");
-        String telephone = rs.getString("telephone");
-        String password = rs.getString("password");
+        if (rs.next()) {
+            String fullname = rs.getString("fullname");
+            String age = rs.getString("age");
+            String telephone = rs.getString("telephone");
+            String password = rs.getString("password");
 
-        // Process the user information as needed
-        jTextField2.setText(fullname);
-        jTextField3.setText(age);
-        jTextField4.setText(telephone);
-        jTextField5.setText(password);
-        jButton1.setVisible(false);
-        jButton3.setVisible(true);
-    } else {
-        // No user found with the given username
-        JOptionPane.showMessageDialog(null, "User not found.");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-    }
+            jTextField2.setText(fullname);
+            jTextField3.setText(age);
+            jTextField4.setText(telephone);
+            jTextField5.setText(password);
+            jButton1.setVisible(false);
+            jButton3.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.");
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+        }
 
-    // Close the resources
-    rs.close();
-    selectStmt.close();
-    con.close();
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
+        rs.close();
+        selectStmt.close();
+        con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
 
-    String username = jTextField1.getText(); // Assuming jTextField1 contains the username
-    String fullname = jTextField2.getText(); // Assuming jTextField2 contains the updated full name
-    String age = jTextField3.getText(); // Assuming jTextField3 contains the updated age
-    String telephone = jTextField4.getText(); // Assuming jTextField4 contains the updated telephone
-    String password = jTextField5.getText();
+        String username = jTextField1.getText();
+        String fullname = jTextField2.getText(); 
+        String age = jTextField3.getText(); 
+        String telephone = jTextField4.getText(); 
+        String password = jTextField5.getText();
 
-    // Update user information based on the username
-    String updateSQL = "UPDATE logindatabase SET fullname = ?, age = ?, telephone = ?, password = ? WHERE username = ?";
-    PreparedStatement updateStmt = con.prepareStatement(updateSQL);
-    updateStmt.setString(1, fullname);
-    updateStmt.setString(2, age);
-    updateStmt.setString(3, telephone);
-    updateStmt.setString(4, password);
-    updateStmt.setString(5, username);
-    int rowsUpdated = updateStmt.executeUpdate();
+        String updateSQL = "UPDATE logindatabase SET fullname = ?, age = ?, telephone = ?, password = ? WHERE username = ?";
+        PreparedStatement updateStmt = con.prepareStatement(updateSQL);
+        updateStmt.setString(1, fullname);
+        updateStmt.setString(2, age);
+        updateStmt.setString(3, telephone);
+        updateStmt.setString(4, password);
+        updateStmt.setString(5, username);
+        int rowsUpdated = updateStmt.executeUpdate();
 
-    if (rowsUpdated > 0) {
-        // User information updated successfully
-        JOptionPane.showMessageDialog(null, "User information updated successfully.");
-    } else {
-        // No user found with the given username
-        JOptionPane.showMessageDialog(null, "User not found or no changes made.");
-    }
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(null, "User information updated successfully.");
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found or no changes made.");
+        }
 
-    // Close the resources
-    updateStmt.close();
-    con.close();
-} catch (ClassNotFoundException | SQLException e) {
-    JOptionPane.showMessageDialog(null, e);
-}
+        updateStmt.close();
+        con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -298,20 +290,21 @@ public class ModifyUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifyUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifyUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifyUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifyUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyUser().setVisible(true);
+                new UpdateFrame().setVisible(true);
             }
         });
     }
